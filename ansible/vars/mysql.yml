@@ -1,0 +1,9 @@
+---
+mysql_root_password: super-secure-password
+mysql_databases:
+  - name: osticket
+mysql_users:
+  - name: osticket
+    host: "%"
+    password: super-secure-password
+    priv: "osticket.*:ALL"

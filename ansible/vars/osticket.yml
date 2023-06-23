@@ -1,0 +1,6 @@
+---
+osticket_version: "v1.18"
+osticket_plugins:
+  - auth-oauth2
+  - auth-2fa
+osticket_update: yes

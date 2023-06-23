@@ -1,0 +1,15 @@
+---
+apache_remove_default_vhost: true
+apache_mods_enabled:
+  - rewrite
+  - ssl
+  - php8.1
+apache_mods_disabled:
+  - php8.0
+apache_vhosts:
+  - servername: "osticket.test"
+    documentroot: "/var/www/osticket/upload"
+    serveralias: "www.osticket.test"
+    extra_parameters: |
+      ErrorLog ${APACHE_LOG_DIR}/osticket-error.log
+      CustomLog ${APACHE_LOG_DIR}/osticket-access.log combined

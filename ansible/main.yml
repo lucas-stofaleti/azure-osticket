@@ -1,0 +1,30 @@
+---
+- hosts: all
+  become: yes
+  vars_files:
+    - vars/apache.yml
+    - vars/mysql.yml
+    - vars/php.yml
+    - vars/osticket.yml
+
+  pre_tasks:
+    - name: Add PHP source
+      ansible.builtin.apt_repository:
+        repo: ppa:ondrej/php
+        
+  tasks:
+    - name: Include MySQL role
+      include_role:
+        name: geerlingguy.mysql
+
+    - name: Include PHP role
+      include_role:
+        name: geerlingguy.php
+
+    - name: Include Apache role
+      include_role:
+        name: geerlingguy.apache
+
+    - name: Include osTicket role
+      include_role:
+        name: lucas_stofaleti.osticket
