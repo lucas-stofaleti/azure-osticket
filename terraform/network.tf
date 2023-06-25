@@ -13,7 +13,6 @@ resource "azurerm_subnet" "this" {
   address_prefixes     = [var.network.subnet_prefixes[count.index]]
 }
 
-
 module "network-security-group" {
   source                = "Azure/network-security-group/azurerm"
   version               = "4.1.0"
@@ -28,4 +27,10 @@ module "network-security-group" {
   tags = {}
 
   depends_on = [azurerm_resource_group.this]
+}
+
+resource "azurerm_subnet_network_security_group_association" "this" {
+  count                     = length(var.nsg)
+  subnet_id                 = azurerm_subnet.this[index(var.network.subnet_names, var.nsg[count.index].subnet_name)].id
+  network_security_group_id = module.network-security-group[count.index].network_security_group_id
 }
